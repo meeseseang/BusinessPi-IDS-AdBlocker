@@ -44,7 +44,7 @@ layout = [[sg.Column(TopHeader, justification='center')],
           [sg.Column(SpeedTestControl, pad=((5,210),3)), sg.Column(SnortControls)],
           [sg.Column(ConsoleOutputLayout)]]
 
-# Create the window for the controls to be in
+# Create the window for the controls to be in and keep it on top
 window = sg.Window("BusinessPi Control Interface", layout, keep_on_top=True, size=(800, 480))
 
 # Start the event loop that checks for button presses and interactions
@@ -57,7 +57,7 @@ while True:
     # Check for the Restart PiHole command
     if event == "Restart PiHole":
         try:
-            subprocess.run(["sudo", "/home/raspi/BusinessPiScripts/piholeRestart.sh"])
+            subprocess.run(["sudo", "~/BusinessPi-IDS-AdBlocker/Scripts/piholeRestart.sh"])
             print("PiHole has been restarted")
         except Exception as Argument:
             f = open("BusinessPiExceptions.txt", "a")
@@ -69,8 +69,8 @@ while True:
     if event == "Status":
         try:
             window.find_element('outputConsole').Update('')
-            subprocess.Popen(["sudo", "/home/raspi/BusinessPiScripts/piholeStatus.sh"], stdout=subprocess.PIPE)
-            PiHoleStatusOutput = subprocess.Popen(["sudo", "/home/raspi/BusinessPiScripts/piholeStatus.sh"], stdout=subprocess.PIPE).stdout.read()
+            subprocess.Popen(["sudo", "~/BusinessPi-IDS-AdBlocker/Scripts/piholeStatus.sh"], stdout=subprocess.PIPE)
+            PiHoleStatusOutput = subprocess.Popen(["sudo", "~/BusinessPi-IDS-AdBlocker/Scripts/piholeStatus.sh"], stdout=subprocess.PIPE).stdout.read()
             CleanedStatusOutput = PiHoleStatusOutput.decode().split('\n')
             print(*CleanedStatusOutput, sep='\n')
             window.refresh()
@@ -83,7 +83,7 @@ while True:
     # Check for PiHole gravity update
     if event == "updateGravity":
         try:
-            subprocess.run(["sudo", "/home/raspi/BusinessPiScripts/piholeUpdateBlocklist.sh"])
+            subprocess.run(["sudo", "~/BusinessPi-IDS-AdBlocker/Scripts/piholeUpdateBlocklist.sh"])
             print("The blocklist has been updated")
         except Exception as Argument:
             f = open("BusinessPiExceptions.txt", "a")
@@ -118,7 +118,7 @@ while True:
     # Check for shutdown raspi command
     if event == "_raspiShutdown_":
         try:
-            subprocess.run(["sudo", "/home/raspi/BusinessPiScripts/shutdown.sh"])
+            subprocess.run(["sudo", "~/BusinessPi-IDS-AdBlocker/Scripts/shutdown.sh"])
         except Exception as Argument:
             f = open("BusinessPiExceptions.txt", "a")
             f.write(str(Argument))
@@ -128,7 +128,7 @@ while True:
     # Check for restart raspi command
     if event == "_raspiRestart_":
         try:
-            subprocess.run(["sudo", "/home/raspi/BusinessPiScripts/restart.sh"])
+            subprocess.run(["sudo", "~/BusinessPi-IDS-AdBlocker/Scripts/restart.sh"])
         except Exception as Argument:
             f = open("BusinessPiExceptions.txt", "a")
             f.write(str(Argument))
@@ -138,7 +138,7 @@ while True:
     # Check for Start Snort command
     if event == "-startSnort-":
         try:
-            subprocess.run(["sudo", "/home/raspi/BusinessPiScripts/startSnort.sh"])
+            subprocess.run(["sudo", "~/BusinessPi-IDS-AdBlocker/Scripts/startSnort.sh"])
             print("Snort has been started")
         except Exception as Argument:
             f = open("BusinessPiExceptions.txt", "a")
@@ -149,7 +149,7 @@ while True:
     # Check for Stop Snort command
     if event == "-stopSnort-":
         try:
-            subprocess.run(["sudo", "/home/raspi/BusinessPiScripts/stopSnort.sh"])
+            subprocess.run(["sudo", "~/BusinessPi-IDS-AdBlocker/Scripts/stopSnort.sh"])
             print("Snort has been stopped")
         except Exception as Argument:
             f = open("BusinessPiExceptions.txt", "a")
@@ -160,7 +160,7 @@ while True:
     # Check for Check Snort Alerts command
     if event == "-showSnortAlert-":
         try:
-            subprocess.run(["sudo", "/home/raspi/BusinessPiScripts/snortAlerts.sh"])
+            subprocess.run(["sudo", "~/BusinessPi-IDS-AdBlocker/Scripts/snortAlerts.sh"])
             print("Printing Snort Alerts")
         except Exception as Argument:
             f = open("BusinessPiExceptions.txt", "a")
