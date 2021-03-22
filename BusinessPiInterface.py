@@ -9,7 +9,7 @@ import logging
 # Set the window theme to dark blue
 sg.theme("Dark Grey 1")
 
-# This initializes the variable that will output the speed test results. Initialize any other variables here.
+# This initializes the variable that will output the speed test results.
 SpeedTestStdout = ""
 
 # Create the main text header at the top of the window
